@@ -85,7 +85,7 @@ export default function VideosPage() {
         <>
           <Grid container spacing={3}>
             {data?.data.map((video) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={video.id}>
+              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={video.id}>
                 <Card>
                   <CardMedia
                     component="img"
@@ -126,7 +126,7 @@ export default function VideosPage() {
               </Grid>
             ))}
             {data?.data.length === 0 && (
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Card>
                   <CardContent sx={{ textAlign: 'center', py: 4 }}>
                     <Typography color="text.secondary">No videos found</Typography>

@@ -19,13 +19,6 @@ export enum VideoSource {
   FILE = 'FILE',
 }
 
-export enum LayoutType {
-  FULLSCREEN = 'FULLSCREEN',
-  SPLIT_HORIZONTAL = 'SPLIT_HORIZONTAL',
-  SPLIT_VERTICAL = 'SPLIT_VERTICAL',
-  PIP = 'PIP',
-}
-
 // Models
 export interface User {
   id: string;
@@ -45,12 +38,10 @@ export interface Client {
   isOnline: boolean;
   lastSeen: string | null;
   userId: string;
-  layoutId: string | null;
   sequenceId: string | null;
   createdAt: string;
   updatedAt: string;
   user?: { loginId: string | null; name: string | null };
-  layout?: Layout | null;
   sequence?: Sequence | null;
 }
 
@@ -78,16 +69,6 @@ export interface Sequence {
   updatedAt: string;
   clients?: { id: string; name: string }[];
   videos?: Video[]; // Populated by backend
-  _count?: { clients: number };
-}
-
-export interface Layout {
-  id: string;
-  name: string;
-  type: LayoutType;
-  config: string;
-  createdAt: string;
-  updatedAt: string;
   _count?: { clients: number };
 }
 
@@ -129,7 +110,6 @@ export interface CreateClientRequest {
   location?: string;
   loginId: string;
   password: string;
-  layoutId?: string;
   sequenceId?: string;
 }
 
@@ -138,7 +118,6 @@ export interface UpdateClientRequest {
   description?: string;
   location?: string;
   password?: string;
-  layoutId?: string;
   sequenceId?: string;
 }
 
@@ -183,17 +162,3 @@ export interface UpdateSequenceRequest {
 export interface AssignSequenceRequest {
   clientIds: string[];
 }
-
-// Layout DTOs
-export interface CreateLayoutRequest {
-  name: string;
-  type?: LayoutType;
-  config?: string;
-}
-
-export interface UpdateLayoutRequest {
-  name?: string;
-  type?: LayoutType;
-  config?: string;
-}
-

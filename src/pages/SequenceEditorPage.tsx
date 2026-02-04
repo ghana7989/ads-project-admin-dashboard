@@ -258,7 +258,7 @@ export default function SequenceEditorPage() {
       <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
         <Grid container spacing={0} sx={{ height: '100%' }}>
           {/* Left Panel: Available Videos */}
-          <Grid item xs={4} sx={{ height: '100%', borderRight: 1, borderColor: 'divider' }}>
+          <Grid size={4} sx={{ height: '100%', borderRight: 1, borderColor: 'divider' }}>
             <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
               <Typography variant="h6" gutterBottom>
                 Available Videos
@@ -317,7 +317,7 @@ export default function SequenceEditorPage() {
           </Grid>
 
           {/* Right Panel: Sequence Builder */}
-          <Grid item xs={8} sx={{ height: '100%' }}>
+          <Grid size={8} sx={{ height: '100%' }}>
             <Box sx={{ p: 3, height: '100%', overflow: 'auto' }}>
               {/* Sequence Details */}
               <Paper sx={{ p: 3, mb: 3 }}>
@@ -325,7 +325,7 @@ export default function SequenceEditorPage() {
                   Sequence Details
                 </Typography>
                 <Grid container spacing={2}>
-                  <Grid item xs={12}>
+                  <Grid size={12}>
                     <TextField
                       fullWidth
                       label="Sequence Name"
@@ -334,7 +334,7 @@ export default function SequenceEditorPage() {
                       required
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={12}>
                     <TextField
                       fullWidth
                       label="Description"
@@ -344,7 +344,7 @@ export default function SequenceEditorPage() {
                       rows={2}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Start Date"
@@ -354,7 +354,7 @@ export default function SequenceEditorPage() {
                       InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="End Date"
@@ -364,7 +364,7 @@ export default function SequenceEditorPage() {
                       InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={12}>
                     <FormControlLabel
                       control={
                         <Switch

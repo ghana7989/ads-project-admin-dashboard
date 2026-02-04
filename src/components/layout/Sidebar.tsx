@@ -15,7 +15,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import TvIcon from '@mui/icons-material/Tv';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 
 interface SidebarProps {
   drawerWidth: number;
@@ -28,7 +27,6 @@ const menuItems = [
   { text: 'Clients', icon: <TvIcon />, path: '/clients' },
   { text: 'Videos', icon: <VideoLibraryIcon />, path: '/videos' },
   { text: 'Sequences', icon: <AccountTreeIcon />, path: '/sequences' },
-  { text: 'Layouts', icon: <ViewQuiltIcon />, path: '/layouts' },
 ];
 
 export default function Sidebar({ drawerWidth, mobileOpen, onClose }: SidebarProps) {

@@ -7,7 +7,6 @@ import ClientsPage from './pages/ClientsPage';
 import VideosPage from './pages/VideosPage';
 import SequencesPage from './pages/SequencesPage';
 import SequenceEditorPage from './pages/SequenceEditorPage';
-import LayoutsPage from './pages/LayoutsPage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -38,7 +37,6 @@ function App() {
           <Route path="sequences" element={<SequencesPage />} />
           <Route path="sequences/:id/edit" element={<SequenceEditorPage />} />
           <Route path="sequences/new" element={<SequenceEditorPage />} />
-          <Route path="layouts" element={<LayoutsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

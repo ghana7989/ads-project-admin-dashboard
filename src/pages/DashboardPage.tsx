@@ -9,11 +9,9 @@ import {
 import TvIcon from '@mui/icons-material/Tv';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 import { useGetClientsQuery } from '../app/api/clientsApi';
 import { useGetVideosQuery } from '../app/api/videosApi';
 import { useGetSequencesQuery } from '../app/api/sequencesApi';
-import { useGetLayoutsQuery } from '../app/api/layoutsApi';
 
 interface StatCardProps {
   title: string;
@@ -57,7 +55,6 @@ export default function DashboardPage() {
   const { data: clients, isLoading: clientsLoading } = useGetClientsQuery({ limit: 1 });
   const { data: videos, isLoading: videosLoading } = useGetVideosQuery({ limit: 1 });
   const { data: sequences, isLoading: sequencesLoading } = useGetSequencesQuery({ limit: 1 });
-  const { data: layouts, isLoading: layoutsLoading } = useGetLayoutsQuery({ limit: 1 });
 
   const onlineClients = clients?.data.filter((c) => c.isOnline).length ?? 0;
 
@@ -68,7 +65,7 @@ export default function DashboardPage() {
       </Typography>
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <StatCard
             title="Clients"
             value={clients?.meta.total}
@@ -77,7 +74,7 @@ export default function DashboardPage() {
             isLoading={clientsLoading}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <StatCard
             title="Videos"
             value={videos?.meta.total}
@@ -86,7 +83,7 @@ export default function DashboardPage() {
             isLoading={videosLoading}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <StatCard
             title="Sequences"
             value={sequences?.meta.total}
@@ -95,19 +92,10 @@ export default function DashboardPage() {
             isLoading={sequencesLoading}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard
-            title="Layouts"
-            value={layouts?.meta.total}
-            icon={<ViewQuiltIcon />}
-            color="#ed6c02"
-            isLoading={layoutsLoading}
-          />
-        </Grid>
       </Grid>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -134,14 +122,14 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Quick Actions
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Use the sidebar to manage clients, videos, sequences, and layouts.
+                Use the sidebar to manage clients, videos, and sequences.
               </Typography>
             </CardContent>
           </Card>
