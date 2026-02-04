@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { VideoSource, LayoutType } from '../types';
+import { VideoSource } from '../types';
 
 export const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -12,7 +12,6 @@ export const createClientSchema = z.object({
   location: z.string().optional(),
   loginId: z.string().min(1, 'Login ID is required'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
-  layoutId: z.string().optional(),
   sequenceId: z.string().optional(),
 });
 
@@ -21,7 +20,6 @@ export const updateClientSchema = z.object({
   description: z.string().optional(),
   location: z.string().optional(),
   password: z.string().min(6, 'Password must be at least 6 characters').optional(),
-  layoutId: z.string().optional(),
   sequenceId: z.string().optional(),
 });
 
@@ -61,18 +59,6 @@ export const updateSequenceSchema = z.object({
   activeHours: z.string().optional(),
 });
 
-export const createLayoutSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  type: z.nativeEnum(LayoutType).optional(),
-  config: z.string().optional(),
-});
-
-export const updateLayoutSchema = z.object({
-  name: z.string().min(1, 'Name is required').optional(),
-  type: z.nativeEnum(LayoutType).optional(),
-  config: z.string().optional(),
-});
-
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type CreateClientFormData = z.infer<typeof createClientSchema>;
 export type UpdateClientFormData = z.infer<typeof updateClientSchema>;
@@ -80,5 +66,3 @@ export type CreateVideoFormData = z.infer<typeof createVideoSchema>;
 export type UpdateVideoFormData = z.infer<typeof updateVideoSchema>;
 export type CreateSequenceFormData = z.infer<typeof createSequenceSchema>;
 export type UpdateSequenceFormData = z.infer<typeof updateSequenceSchema>;
-export type CreateLayoutFormData = z.infer<typeof createLayoutSchema>;
-export type UpdateLayoutFormData = z.infer<typeof updateLayoutSchema>;
