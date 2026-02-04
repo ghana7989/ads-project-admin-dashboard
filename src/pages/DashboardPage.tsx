@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -12,6 +13,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { useGetClientsQuery } from '../app/api/clientsApi';
 import { useGetVideosQuery } from '../app/api/videosApi';
 import { useGetSequencesQuery } from '../app/api/sequencesApi';
+import { useWebSocket } from '../hooks/useWebSocket';
 
 interface StatCardProps {
   title: string;
@@ -52,11 +54,27 @@ function StatCard({ title, value, icon, color, isLoading }: StatCardProps) {
 }
 
 export default function DashboardPage() {
-  const { data: clients, isLoading: clientsLoading } = useGetClientsQuery({ limit: 1 });
+  const { data: clients, isLoading: clientsLoading, refetch } = useGetClientsQuery({ limit: 1 });
   const { data: videos, isLoading: videosLoading } = useGetVideosQuery({ limit: 1 });
   const { data: sequences, isLoading: sequencesLoading } = useGetSequencesQuery({ limit: 1 });
+  const { on, off } = useWebSocket();
 
   const onlineClients = clients?.data.filter((c) => c.isOnline).length ?? 0;
+
+  // Listen for real-time client status updates via WebSocket
+  useEffect(() => {
+    const handleClientStatusChange = () => {
+      refetch();
+    };
+
+    on('admin:client-online', handleClientStatusChange);
+    on('admin:client-offline', handleClientStatusChange);
+
+    return () => {
+      off('admin:client-online', handleClientStatusChange);
+      off('admin:client-offline', handleClientStatusChange);
+    };
+  }, [on, off, refetch]);
 
   return (
     <Box>

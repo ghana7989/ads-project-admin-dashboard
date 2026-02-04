@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -38,11 +38,13 @@ import {
   useForceRefreshClientMutation,
 } from '../app/api/clientsApi';
 import { useGetSequencesQuery } from '../app/api/sequencesApi';
+import { useWebSocket } from '../hooks/useWebSocket';
 import type { Client, CreateClientRequest, UpdateClientRequest } from '../types';
 
 export default function ClientsPage() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { on, off } = useWebSocket();
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
@@ -60,7 +62,7 @@ export default function ClientsPage() {
     sequenceId: '',
   });
 
-  const { data, isLoading } = useGetClientsQuery({
+  const { data, isLoading, refetch } = useGetClientsQuery({
     page: page + 1,
     limit: rowsPerPage,
   });
@@ -69,6 +71,25 @@ export default function ClientsPage() {
   const [updateClient, { isLoading: isUpdating }] = useUpdateClientMutation();
   const [deleteClient] = useDeleteClientMutation();
   const [forceRefresh] = useForceRefreshClientMutation();
+
+  // Listen for real-time client status updates via WebSocket
+  useEffect(() => {
+    const handleClientOnline = () => {
+      refetch();
+    };
+
+    const handleClientOffline = () => {
+      refetch();
+    };
+
+    on('admin:client-online', handleClientOnline);
+    on('admin:client-offline', handleClientOffline);
+
+    return () => {
+      off('admin:client-online', handleClientOnline);
+      off('admin:client-offline', handleClientOffline);
+    };
+  }, [on, off, refetch]);
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
